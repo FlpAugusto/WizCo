@@ -1,0 +1,95 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using WizCo.Application.Shared.DTOs.Request;
+using WizCo.Application.Shared.DTOs.Response;
+using WizCo.Application.Shared.Results;
+using WizCo.Domain.Filters;
+using WizCo.Domain.Interfaces.Services;
+using WizCo.Infrastructure.Services.Interfaces;
+
+namespace WizCo.Api.Controllers
+{
+    [Route("[controller]")]
+    [ApiController]
+    public class OrdersController : ApiControllerBase
+    {
+        private readonly IOrderService _service;
+
+        public OrdersController(IServiceContext serviceContext,
+                                IOrderService service) : base(serviceContext)
+        {
+            _service = service;
+        }
+
+        /// <summary>
+        /// Retorna uma lista de Pedidos paginada e filtrada.
+        /// </summary>
+        /// <param name="filter">Filtro e paginação</param>
+        /// <returns>Lista paginada das Pedidos filtrados</returns>
+        /// <response code="200">Sucesso na requisição</response>
+        /// <response code="400">Os parâmetros não foram passados corretamente ou ocorreu algum erro inesperado durante a execução do método</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(PagedResult<>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetByFilter([FromQuery] OrderFilter filter)
+        {
+            var result = await _service.GetByFilterAsync(filter);
+            return ServiceResponse(result, HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Retorna uma Pedido através do Id.
+        /// </summary>
+        /// <param name="id">Id da Pedido</param>
+        /// <returns>Dados da Pedido consultada</returns>
+        /// <response code="200">Sucesso na requisição</response>
+        /// <response code="204">Sucesso na requisição, porém não existem dados</response>
+        /// <response code="400">Os parâmetros não foram passados corretamente ou ocorreu algum erro inesperado durante a execução do método</response>
+        [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var result = await _service.GetByIdAsync(id);
+
+            return result is null
+                ? ServiceResponse(HttpStatusCode.NoContent)
+                : ServiceResponse(result, HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Criar um Pedido.
+        /// </summary>
+        /// <returns>Dados do Pedido criado</returns>
+        /// <response code="201">Sucesso na requisição</response>
+        /// <response code="400">Os parâmetros não foram passados corretamente ou ocorreu algum erro inesperado durante a execução do método</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(OrderDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> Post([FromBody] CreateOrderDto data)
+        {
+            var result = await _service.CreateAsync(data);
+            return ServiceResponse(result, HttpStatusCode.Created);
+        }
+
+        /// <summary>
+        /// Cancela um Pedido.
+        /// </summary>
+        /// <param name="id">Id da Pedido</param>
+        /// <response code="200">Sucesso na requisição</response>
+        /// <response code="400">Os parâmetros não foram passados corretamente ou ocorreu algum erro inesperado durante a execução do método</response>
+        [HttpPut("{id:guid}/cancel")]
+        [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> Cancel([FromRoute] Guid id)
+        {
+            await _service.CancelAsync(id);
+            return ServiceResponse(HttpStatusCode.OK);
+        }
+    }
+}

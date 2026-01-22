@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/WizCo.Api/WizCo.Api.csproj" />
+    <Project Path="src/WizCo.Application/WizCo.Application.csproj" />
+    <Project Path="src/WizCo.Domain/WizCo.Domain.csproj" />
+    <Project Path="src/WizCo.Infrastructure/WizCo.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/test/" />
+</Solution>
