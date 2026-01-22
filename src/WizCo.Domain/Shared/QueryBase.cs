@@ -35,9 +35,6 @@ namespace WizCo.Domain.Shared
             PageSize = 0;
         }
 
-        /// <summary>
-        /// Search term used to filter query results
-        /// </summary>
-        public string Search { get; set; }
+        public string? Search { get; set; }
     }
 }

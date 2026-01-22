@@ -18,17 +18,21 @@ namespace WizCo.Domain.Entities
         public Order()
         {
             Status = StatusOrder.New;
+            CreatedAt = DateTimeOffset.UtcNow;
             Items = [];
         }
 
-        public Order(string clientName, List<ItemOrder> items) : this()
+    public Order(string clientName, List<ItemOrder> items) : this()
+    {
+        ClientName = clientName;
+        
+        foreach (var item in items)
         {
-            ClientName = clientName;
-            Items = items;
-
-            CreatedAt = DateTimeOffset.UtcNow;
-            CalculateTotalValue();
+            Items.Add(item);
         }
+        
+        CalculateTotalValue();
+    }
 
         public void CalculateTotalValue()
         {

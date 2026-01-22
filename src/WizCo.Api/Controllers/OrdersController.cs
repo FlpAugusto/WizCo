@@ -1,4 +1,4 @@
-Ôªøusing Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WizCo.Application.Interfaces.Services;
 using WizCo.Application.Shared.DTOs.Request;
@@ -23,10 +23,10 @@ namespace WizCo.Api.Controllers
         /// <summary>
         /// Retorna uma lista de Pedidos paginada e filtrada.
         /// </summary>
-        /// <param name="filter">Filtro e pagina√ß√£o</param>
+        /// <param name="filter">Filtro e paginaÁ„o</param>
         /// <returns>Lista paginada das Pedidos filtrados</returns>
-        /// <response code="200">Sucesso na requisi√ß√£o</response>
-        /// <response code="400">Os par√¢metros n√£o foram passados corretamente ou ocorreu algum erro inesperado durante a execu√ß√£o do m√©todo</response>
+        /// <response code="200">Sucesso na requisiÁ„o</response>
+        /// <response code="400">Os par‚metros n„o foram passados corretamente ou ocorreu algum erro inesperado durante a execuÁ„o do mÈtodo</response>
         [HttpGet]
         [ProducesResponseType(typeof(PagedResult<OrderDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
@@ -37,13 +37,13 @@ namespace WizCo.Api.Controllers
         }
 
         /// <summary>
-        /// Retorna uma Pedido atrav√©s do Id.
+        /// Retorna uma Pedido atravÈs do Id.
         /// </summary>
-        /// <param name="id">Id da Pedido</param>
-        /// <returns>Dados da Pedido consultada</returns>
-        /// <response code="200">Sucesso na requisi√ß√£o</response>
-        /// <response code="204">Sucesso na requisi√ß√£o, por√©m n√£o existem dados</response>
-        /// <response code="400">Os par√¢metros n√£o foram passados corretamente ou ocorreu algum erro inesperado durante a execu√ß√£o do m√©todo</response>
+        /// <param name="id">Id do Pedido</param>
+        /// <returns>Dados do Pedido consultado</returns>
+        /// <response code="200">Sucesso na requisiÁ„o</response>
+        /// <response code="204">Sucesso na requisiÁ„o, porÈm n„o existem dados</response>
+        /// <response code="400">Os par‚metros n„o foram passados corretamente ou ocorreu algum erro inesperado durante a execuÁ„o do mÈtodo</response>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -61,8 +61,8 @@ namespace WizCo.Api.Controllers
         /// Criar um Pedido.
         /// </summary>
         /// <returns>Dados do Pedido criado</returns>
-        /// <response code="201">Sucesso na requisi√ß√£o</response>
-        /// <response code="400">Os par√¢metros n√£o foram passados corretamente ou ocorreu algum erro inesperado durante a execu√ß√£o do m√©todo</response>
+        /// <response code="201">Sucesso na requisiÁ„o</response>
+        /// <response code="400">Os par‚metros n„o foram passados corretamente ou ocorreu algum erro inesperado durante a execuÁ„o do mÈtodo</response>
         [HttpPost]
         [ProducesResponseType(typeof(OrderDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
@@ -75,11 +75,11 @@ namespace WizCo.Api.Controllers
         /// <summary>
         /// Cancela um Pedido.
         /// </summary>
-        /// <param name="id">Id da Pedido</param>
-        /// <response code="200">Sucesso na requisi√ß√£o</response>
-        /// <response code="400">Os par√¢metros n√£o foram passados corretamente ou ocorreu algum erro inesperado durante a execu√ß√£o do m√©todo</response>
+        /// <param name="id">Id do Pedido</param>
+        /// <response code="200">Sucesso na requisiÁ„o</response>
+        /// <response code="400">Os par‚metros n„o foram passados corretamente ou ocorreu algum erro inesperado durante a execuÁ„o do mÈtodo</response>
         [HttpPut("{id:guid}/cancel")]
-        [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Cancel([FromRoute] Guid id)
         {
