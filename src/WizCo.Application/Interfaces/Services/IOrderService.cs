@@ -2,13 +2,12 @@
 using WizCo.Application.Shared.DTOs.Response;
 using WizCo.Application.Shared.Results;
 using WizCo.Domain.Filters;
-using WizCo.Infrastructure.Services.Interfaces;
 
-namespace WizCo.Domain.Interfaces.Services
+namespace WizCo.Application.Interfaces.Services
 {
     public interface IOrderService : IServiceBase
     {
-        Task<PagedResult<OrderDto>> GetByFilterAsync(OrderFilter filter);
+        PagedResult<OrderDto> GetByFilter(OrderFilter filter);
 
         Task<OrderDto> GetByIdAsync(Guid id);
 

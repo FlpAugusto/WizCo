@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WizCo.Application.Shared.Results;
-using WizCo.Infrastructure.Services.Interfaces;
+using WizCo.Application.Interfaces.Services;
 
 namespace WizCo.Api.Controllers
 {

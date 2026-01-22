@@ -5,5 +5,7 @@
     <Project Path="src/WizCo.Domain/WizCo.Domain.csproj" />
     <Project Path="src/WizCo.Infrastructure/WizCo.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/test/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/WizCo.Infrastructure.Tests/WizCo.Infrastructure.Tests.csproj" />
+  </Folder>
 </Solution>

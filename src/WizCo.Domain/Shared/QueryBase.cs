@@ -1,6 +1,6 @@
-﻿using AspNetCore.IQueryable.Extensions;
+using AspNetCore.IQueryable.Extensions;
 
-namespace WizCo.Application.Shared.Queries
+namespace WizCo.Domain.Shared
 {
     public abstract class QueryBase : ICustomQueryable
     {
@@ -35,6 +35,9 @@ namespace WizCo.Application.Shared.Queries
             PageSize = 0;
         }
 
+        /// <summary>
+        /// Search term used to filter query results
+        /// </summary>
         public string Search { get; set; }
     }
 }

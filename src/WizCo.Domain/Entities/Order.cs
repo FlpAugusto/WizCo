@@ -21,12 +21,38 @@ namespace WizCo.Domain.Entities
             Items = [];
         }
 
-        public Order(string clientName, IEnumerable<ItemOrder> items) : this()
+        public Order(string clientName, List<ItemOrder> items) : this()
         {
             ClientName = clientName;
-            Items = items.ToList();
+            Items = items;
 
             CreatedAt = DateTimeOffset.UtcNow;
+            CalculateTotalValue();
+        }
+
+        public void CalculateTotalValue()
+        {
+            TotalValue = Items.Sum(i => i.Subtotal);
+        }
+
+        public void Pay()
+        {
+            Status = StatusOrder.Paid;
+        }
+
+        public void Cancel()
+        {
+            if (!CanBeCanceled())
+            {
+                throw new InvalidOperationException("Pedido pago não pode ser cancelado.");
+            }
+
+            Status = StatusOrder.Canceled;
+        }
+
+        public bool CanBeCanceled()
+        {
+            return Status != StatusOrder.Paid;
         }
     }
 }

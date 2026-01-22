@@ -1,4 +1,4 @@
-﻿namespace WizCo.Infrastructure.Services.Interfaces
+namespace WizCo.Application.Interfaces.Services
 {
     public interface IServiceContext
     {

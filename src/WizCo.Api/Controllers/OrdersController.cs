@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WizCo.Application.Interfaces.Services;
 using WizCo.Application.Shared.DTOs.Request;
 using WizCo.Application.Shared.DTOs.Response;
 using WizCo.Application.Shared.Results;
 using WizCo.Domain.Filters;
-using WizCo.Domain.Interfaces.Services;
-using WizCo.Infrastructure.Services.Interfaces;
 
 namespace WizCo.Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ApiControllerBase
     {
@@ -29,11 +28,11 @@ namespace WizCo.Api.Controllers
         /// <response code="200">Sucesso na requisição</response>
         /// <response code="400">Os parâmetros não foram passados corretamente ou ocorreu algum erro inesperado durante a execução do método</response>
         [HttpGet]
-        [ProducesResponseType(typeof(PagedResult<>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PagedResult<OrderDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetByFilter([FromQuery] OrderFilter filter)
+        public IActionResult GetByFilter([FromQuery] OrderFilter filter)
         {
-            var result = await _service.GetByFilterAsync(filter);
+            var result = _service.GetByFilter(filter);
             return ServiceResponse(result, HttpStatusCode.OK);
         }
 
@@ -67,8 +66,6 @@ namespace WizCo.Api.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrderDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Post([FromBody] CreateOrderDto data)
         {
             var result = await _service.CreateAsync(data);
@@ -84,8 +81,6 @@ namespace WizCo.Api.Controllers
         [HttpPut("{id:guid}/cancel")]
         [ProducesResponseType(typeof(OrderDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiBadRequestResult), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Cancel([FromRoute] Guid id)
         {
             await _service.CancelAsync(id);

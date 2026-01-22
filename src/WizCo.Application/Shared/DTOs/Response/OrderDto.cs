@@ -8,7 +8,7 @@
 
         public DateTimeOffset CreatedAt { get; set; }
 
-        public string StatusOrder { get; set; }
+        public string Status { get; set; }
 
         public decimal TotalValue { get; set; }
 

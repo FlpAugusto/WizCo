@@ -1,7 +1,7 @@
-﻿using FluentValidation.Results;
-using WizCo.Infrastructure.Services.Interfaces;
+using FluentValidation.Results;
+using WizCo.Application.Interfaces.Services;
 
-namespace WizCo.Infrastructure.Services
+namespace WizCo.Application.Services
 {
     public class ServiceBase : IServiceBase
     {
@@ -22,7 +22,5 @@ namespace WizCo.Infrastructure.Services
         {
             validationResult.Errors.ForEach(error => AddNotification(error.ErrorMessage));
         }
-
-        public bool HasNotification() => _serviceContext.HasNotification();
     }
 }

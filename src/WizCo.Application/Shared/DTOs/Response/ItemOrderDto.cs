@@ -4,10 +4,10 @@
     {
         public Guid Id { get; set; }
 
-        public string ProductName { get; private set; }
+        public string ProductName { get; set; }
 
-        public int Amount { get; private set; }
+        public int Amount { get; set; }
 
-        public decimal UnitPrice { get; private set; }
+        public decimal UnitPrice { get; set; }
     }
 }

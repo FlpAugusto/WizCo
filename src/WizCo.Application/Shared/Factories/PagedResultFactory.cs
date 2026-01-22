@@ -1,5 +1,5 @@
-﻿using WizCo.Application.Shared.Queries;
-using WizCo.Application.Shared.Results;
+﻿using WizCo.Application.Shared.Results;
+using WizCo.Domain.Shared;
 using X.PagedList.Extensions;
 
 namespace WizCo.Application.Shared.Factories
